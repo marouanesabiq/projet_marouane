@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil Avancé</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Votre Nom</h1>
+    </header>
+
+    <section id="about">
+        <h2>À propos de moi</h2>
+        <p>Je suis une personne passionnée par la technologie et toujours en quête de nouvelles connaissances.</p>
+        
+        <img src="haaaha.jpg" alt="" width="200" height="200" >
+    </section>
+
+    <section id="hobbies-goals">
+        <h2>Hobbies et Objectifs</h2>
+        <h3>Mes Hobbies</h3>
+        <ul>
+            <li>Lecture</li>
+            <li>Programmation</li>
+            <li>Voyage</li>
+        </ul>
+
+        <h3>Mes Objectifs pour cette année</h3>
+        <ol>
+            <li>Apprendre React</li>
+            <li>Voyager dans trois nouveaux pays</li>
+            <li>Améliorer mes compétences en design web</li>
+        </ol>
+    </section>
+
+    <section id="friends">
+        <h2>Tableau d'Amis</h2>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Âge</th>
+                <th>Ville</th>
+                <th>Profil</th>
+            </tr>
+            <tr>
+                <td>Jean</td>
+                <td>25</td>
+                <td>Paris</td>
+                <td><a href="https://profil-jean.com">Voir le profil</a></td>
+            </tr>
+            <tr>
+                <td>Marie</td>
+                <td>30</td>
+                <td>Lyon</td>
+                <td><a href="https://profil-marie.com">Voir le profil</a></td>
+            </tr>
+            <tr>
+                <td>Paul</td>
+                <td>28</td>
+                <td>Bordeaux</td>
+                <td><a href="https://profil-paul.com">Voir le profil</a></td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="contact">
+        <h2>Formulaire de Contact</h2>
+        <form id="contact-form">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <label for="message">Message :</label>
+            <textarea id="message" name="message"></textarea>
+            <br>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
