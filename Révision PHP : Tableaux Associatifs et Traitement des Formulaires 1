@@ -1,0 +1,228 @@
+Révision PHP : Tableaux Associatifs et Traitement des Formulaires 1
+
+### 1. Créez un tableau associatif pour représenter un étudiant avec les clés 'nom', 'prénom', et 'matricule'. Affichez les informations sur l'étudiant.
+
+**PHP:**
+```php
+<?php
+$etudiant = array(
+    'nom' => 'Dupont',
+    'prénom' => 'Jean',
+    'matricule' => '123456'
+);
+
+echo "Nom: " . $etudiant['nom'] . "<br>";
+echo "Prénom: " . $etudiant['prénom'] . "<br>";
+echo "Matricule: " . $etudiant['matricule'] . "<br>";
+?>
+```
+
+---
+
+### 2. Ajoutez une clé 'note' au tableau associatif de l'étudiant, puis modifiez sa valeur.
+
+**PHP:**
+```php
+<?php
+$etudiant['note'] = 15; // Ajouter une clé 'note'
+$etudiant['note'] = 18; // Modifier la valeur de 'note'
+
+echo "Note: " . $etudiant['note'] . "<br>";
+?>
+```
+
+---
+
+### 3. Parcourez un tableau associatif contenant des informations sur 3 produits (nom et prix) et affichez les produits avec leurs prix.
+
+**PHP:**
+```php
+<?php
+$produits = array(
+    'produit1' => array('nom' => 'Ordinateur', 'prix' => 500),
+    'produit2' => array('nom' => 'Téléphone', 'prix' => 300),
+    'produit3' => array('nom' => 'Tablette', 'prix' => 200)
+);
+
+foreach ($produits as $produit) {
+    echo "Produit: " . $produit['nom'] . " - Prix: " . $produit['prix'] . "€<br>";
+}
+?>
+```
+
+---
+
+### 4. Créez un tableau associatif pour stocker les scores de 5 étudiants, puis calculez et affichez la moyenne des scores.
+
+**PHP:**
+```php
+<?php
+$scores = array(
+    'Etudiant1' => 15,
+    'Etudiant2' => 18,
+    'Etudiant3' => 12,
+    'Etudiant4' => 10,
+    'Etudiant5' => 17
+);
+
+$total = 0;
+foreach ($scores as $score) {
+    $total += $score;
+}
+
+$moyenne = $total / count($scores);
+echo "La moyenne des scores est : " . $moyenne . "<br>";
+?>
+```
+
+---
+
+### 5. Créez un tableau associatif avec des noms de pays comme clés et leurs populations comme valeurs. Triez ce tableau par population en ordre décroissant et affichez les résultats.
+
+**PHP:**
+```php
+<?php
+$pays = array(
+    'France' => 67000000,
+    'Allemagne' => 83000000,
+    'Espagne' => 47000000,
+    'Italie' => 60000000
+);
+
+arsort($pays); // Trie par valeur en ordre décroissant
+
+foreach ($pays as $pays => $population) {
+    echo $pays . " : " . $population . " habitants<br>";
+}
+?>
+```
+
+---
+
+### 6. Créez un formulaire en HTML avec les champs 'nom' et 'âge'. Récupérez ces données via $_POST et affichez un message comme : 'Bienvenue, [Nom], vous avez [Âge] ans !'.
+
+**HTML + PHP:**
+```php
+<!-- formulaire.php -->
+<form method="POST" action="afficher.php">
+    Nom: <input type="text" name="nom" required><br>
+    Âge: <input type="text" name="âge" required><br>
+    <input type="submit" value="Envoyer">
+</form>
+```
+
+**PHP (afficher.php):**
+```php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = $_POST['nom'];
+    $âge = $_POST['âge'];
+    echo "Bienvenue, $nom, vous avez $âge ans !";
+}
+?>
+```
+
+---
+
+### 7. Modifiez le formulaire précédent pour inclure une validation simple : vérifiez que l'âge est un entier et qu'il est supérieur à 0. Si la validation échoue, affichez un message d'erreur.
+
+**PHP (afficher.php):**
+```php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = $_POST['nom'];
+    $âge = $_POST['âge'];
+
+    if (!is_numeric($âge) || $âge <= 0) {
+        echo "L'âge doit être un nombre entier positif.";
+    } else {
+        echo "Bienvenue, $nom, vous avez $âge ans !";
+    }
+}
+?>
+```
+
+---
+
+### 8. Créez un formulaire contenant une liste déroulante (<select>) permettant à l'utilisateur de choisir une couleur préférée (rouge, vert, bleu). Après soumission, affichez un message : 'Votre couleur préférée est : [Couleur]'.
+
+**HTML + PHP:**
+```php
+<!-- formulaire.php -->
+<form method="POST" action="couleur.php">
+    <label for="couleur">Choisissez votre couleur préférée:</label>
+    <select name="couleur" id="couleur">
+        <option value="rouge">Rouge</option>
+        <option value="vert">Vert</option>
+        <option value="bleu">Bleu</option>
+    </select><br>
+    <input type="submit" value="Envoyer">
+</form>
+```
+
+**PHP (couleur.php):**
+```php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $couleur = $_POST['couleur'];
+    echo "Votre couleur préférée est : $couleur";
+}
+?>
+```
+
+---
+
+### 9. Créez un formulaire pour demander à l'utilisateur de saisir deux nombres. Récupérez ces nombres via $_GET et affichez leur somme.
+
+**HTML + PHP:**
+```php
+<!-- formulaire.php -->
+<form method="GET" action="somme.php">
+    Nombre 1: <input type="number" name="nombre1" required><br>
+    Nombre 2: <input type="number" name="nombre2" required><br>
+    <input type="submit" value="Calculer la somme">
+</form>
+```
+
+**PHP (somme.php):**
+```php
+<?php
+if (isset($_GET['nombre1']) && isset($_GET['nombre2'])) {
+    $nombre1 = $_GET['nombre1'];
+    $nombre2 = $_GET['nombre2'];
+    $somme = $nombre1 + $nombre2;
+    echo "La somme des deux nombres est : $somme";
+}
+?>
+```
+
+---
+
+### 10. Créez un formulaire qui permet à l'utilisateur de sélectionner son type de compte (Administrateur ou Utilisateur). En fonction du choix, affichez un message différent après soumission, comme : 'Bienvenue, administrateur !' ou 'Bienvenue, utilisateur simple !'.
+
+**HTML + PHP:**
+```php
+<!-- formulaire.php -->
+<form method="POST" action="compte.php">
+    <label for="compte">Sélectionnez votre type de compte :</label>
+    <select name="compte" id="compte">
+        <option value="administrateur">Administrateur</option>
+        <option value="utilisateur">Utilisateur</option>
+    </select><br>
+    <input type="submit" value="Envoyer">
+</form>
+```
+
+**PHP (compte.php):**
+```php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $compte = $_POST['compte'];
+
+    if ($compte == 'administrateur') {
+        echo "Bienvenue, administrateur !";
+    } else {
+        echo "Bienvenue, utilisateur simple !";
+    }
+}
+?>
