@@ -1,0 +1,234 @@
+
+### Révision PHP : Tableaux Associatifs et Traitement des Formulaires 2
+### 1. **Tableau associatif avec des employés et calcul du salaire moyen**
+
+```php
+<?php
+$employes = [
+    ['nom' => 'John', 'poste' => 'Développeur', 'salaire' => 3000],
+    ['nom' => 'Marie', 'poste' => 'Designer', 'salaire' => 2500],
+    ['nom' => 'Paul', 'poste' => 'Chef de projet', 'salaire' => 4500],
+    ['nom' => 'Laura', 'poste' => 'Testeur', 'salaire' => 2800],
+    ['nom' => 'Lucas', 'poste' => 'DevOps', 'salaire' => 3500]
+];
+
+function salaireMoyen($employes) {
+    $totalSalaire = 0;
+    $nombre = count($employes);
+    foreach ($employes as $employe) {
+        $totalSalaire += $employe['salaire'];
+    }
+    return $totalSalaire / $nombre;
+}
+
+echo "Le salaire moyen des employés est : " . salaireMoyen($employes);
+?>
+```
+
+### 2. **Recherche dynamique d'un employé**
+
+```php
+<?php
+$employes = [
+    'John' => ['poste' => 'Développeur', 'salaire' => 3000],
+    'Marie' => ['poste' => 'Designer', 'salaire' => 2500],
+    'Paul' => ['poste' => 'Chef de projet', 'salaire' => 4500],
+    'Laura' => ['poste' => 'Testeur', 'salaire' => 2800],
+    'Lucas' => ['poste' => 'DevOps', 'salaire' => 3500]
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nom = $_POST['nom'];
+    if (isset($employes[$nom])) {
+        echo "Nom: $nom<br>";
+        echo "Poste: " . $employes[$nom]['poste'] . "<br>";
+        echo "Salaire: " . $employes[$nom]['salaire'] . "<br>";
+    } else {
+        echo "Employé non trouvé.";
+    }
+}
+?>
+
+<form method="POST">
+    Nom de l'employé: <input type="text" name="nom">
+    <input type="submit" value="Rechercher">
+</form>
+```
+
+### 3. **Formulaire de connexion avec email et mot de passe**
+
+```php
+<?php
+$utilisateurs = [
+    'user1@example.com' => ['mot_de_passe' => 'password123'],
+    'user2@example.com' => ['mot_de_passe' => 'mypassword'],
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $motdepasse = $_POST['motdepasse'];
+    if (isset($utilisateurs[$email]) && $utilisateurs[$email]['mot_de_passe'] === $motdepasse) {
+        echo "Connexion réussie.";
+    } else {
+        echo "Email ou mot de passe incorrect.";
+    }
+}
+?>
+
+<form method="POST">
+    Email: <input type="email" name="email"><br>
+    Mot de passe: <input type="password" name="motdepasse"><br>
+    <input type="submit" value="Se connecter">
+</form>
+```
+
+### 4. **Système de panier avec produits**
+
+```php
+<?php
+$panier = [
+    'Produit1' => ['quantité' => 2, 'prix' => 10],
+    'Produit2' => ['quantité' => 1, 'prix' => 15],
+    'Produit3' => ['quantité' => 3, 'prix' => 20],
+];
+
+$total = 0;
+foreach ($panier as $produit => $details) {
+    $total += $details['quantité'] * $details['prix'];
+}
+
+echo "Total du panier : $total €";
+?>
+```
+
+### 5. **Formulaire pour soumettre un commentaire avec horodatage**
+
+```php
+<?php
+$commentaires = [];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $commentaire = $_POST['commentaire'];
+    $horodatage = date('Y-m-d H:i:s');
+    $commentaires[] = ['commentaire' => $commentaire, 'horodatage' => $horodatage];
+}
+
+foreach ($commentaires as $commentaire) {
+    echo "Commentaire: " . $commentaire['commentaire'] . " - " . $commentaire['horodatage'] . "<br>";
+}
+?>
+
+<form method="POST">
+    Commentaire: <textarea name="commentaire"></textarea><br>
+    <input type="submit" value="Envoyer">
+</form>
+```
+
+### 6. **Ville avec température et recherche de la température la plus élevée**
+
+```php
+<?php
+$temperatures = [
+    'Paris' => 12,
+    'Londres' => 15,
+    'Berlin' => 10,
+    'Madrid' => 20,
+    'Rome' => 18
+];
+
+$villeMax = array_keys($temperatures, max($temperatures))[0];
+echo "La ville avec la température la plus élevée est $villeMax avec " . max($temperatures) . "°C.";
+?>
+```
+
+### 7. **Lire un fichier CSV et afficher dans un tableau HTML**
+
+```php
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csv'])) {
+    $file = $_FILES['csv']['tmp_name'];
+    if (($handle = fopen($file, 'r')) !== FALSE) {
+        echo "<table border='1'><tr><th>Nom</th><th>Prix</th><th>Quantité</th></tr>";
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            echo "<tr><td>" . $data[0] . "</td><td>" . $data[1] . "</td><td>" . $data[2] . "</td></tr>";
+        }
+        fclose($handle);
+        echo "</table>";
+    }
+}
+?>
+
+<form method="POST" enctype="multipart/form-data">
+    Sélectionner un fichier CSV: <input type="file" name="csv">
+    <input type="submit" value="Charger">
+</form>
+```
+
+### 8. **Sélection de produits avec cases à cocher**
+
+```php
+<?php
+$produits = [
+    'Produit1' => 10,
+    'Produit2' => 15,
+    'Produit3' => 20
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $total = 0;
+    foreach ($_POST['produits'] as $produit) {
+        $total += $produits[$produit];
+    }
+    echo "Produits sélectionnés: " . implode(', ', $_POST['produits']) . "<br>";
+    echo "Total: $total €";
+}
+?>
+
+<form method="POST">
+    <?php foreach ($produits as $produit => $prix): ?>
+        <input type="checkbox" name="produits[]" value="<?php echo $produit; ?>"><?php echo $produit . " - $prix €"; ?><br>
+    <?php endforeach; ?>
+    <input type="submit" value="Valider">
+</form>
+```
+
+### 9. Tableau associatif imbriqué pour les étudiants et leurs notes
+
+```php
+<?php
+$etudiants = [
+    'Alice' => ['Math' => 15, 'Français' => 12, 'Anglais' => 14],
+    'Bob' => ['Math' => 10, 'Français' => 8, 'Anglais' => 9],
+    'Charlie' => ['Math' => 18, 'Français' => 16, 'Anglais' => 17]
+];
+
+foreach ($etudiants as $nom => $notes) {
+    $moyenne = array_sum($notes) / count($notes);
+    echo "Moyenne de $nom: $moyenne<br>";
+}
+?>
+```
+
+### 10. **Système de gestion des utilisateurs (ajouter, modifier, supprimer)**
+
+```php
+<?php
+$utilisateurs = [
+    'user1' => ['email' => 'user1@example.com', 'motdepasse' => 'pass1'],
+    'user2' => ['email' => 'user2@example.com', 'motdepasse' => 'pass2']
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+        $username = $_POST['username'];
+        if ($action == 'ajouter') {
+            $utilisateurs[$username] = ['email' => $_POST['email'], 'motdepasse' => $_POST['motdepasse']];
+            echo "Utilisateur ajouté.";
+        } elseif ($action == 'modifier' && isset($utilisateurs[$username])) {
+            $utilisateurs[$username]['email'] = $_POST['email'];
+            $utilisateurs[$username]['motdepasse'] = $_POST['motdepasse'];
+            echo "Utilisateur modifié.";
+        } elseif ($action == 'supprimer' && isset($utilisateurs[$username])) {
+            unset($utilisateurs[$username]);
+            echo "Utilisateur supprimé
