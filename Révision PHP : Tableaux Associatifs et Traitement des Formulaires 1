@@ -1,4 +1,4 @@
-Révision PHP : Tableaux Associatifs et Traitement des Formulaires 1
+exercice 1
 
 ### 1. Créez un tableau associatif pour représenter un étudiant avec les clés 'nom', 'prénom', et 'matricule'. Affichez les informations sur l'étudiant.
 
@@ -6,8 +6,8 @@ Révision PHP : Tableaux Associatifs et Traitement des Formulaires 1
 ```php
 <?php
 $etudiant = array(
-    'nom' => 'Dupont',
-    'prénom' => 'Jean',
+    'nom' => 'marouane',
+    'prénom' => 'sabiq',
     'matricule' => '123456'
 );
 
